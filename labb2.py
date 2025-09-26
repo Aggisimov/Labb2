@@ -18,7 +18,7 @@ def euclidean(p1, p2):
     dy = y2 - y1
     return np.sqrt(dx*dx + dy*dy) 
 
-print("Give me the width and height of your unknown yellow Pokemon and I'll tell you what it is:")
+print("Give me the width and height in cm of your unknown yellow Pokemon and i will tell you what it is:")
 
 
 def get_userinput(prompt):
@@ -37,7 +37,7 @@ while True:
     w = get_userinput("Width: ")
     h = get_userinput("Height: ")
 
-    print(f"You entered width={w}, height={h}")
+    print(f"You entered width={w} cm, height={h} cm")
     confirm = input("Is this correct? (y/n): ").strip().lower()
 
     if confirm == "y":
@@ -45,12 +45,12 @@ while True:
     else:
         print("Okay, lets try again!")
 
-print(f"Final values: width= {w}, height= {h}")
+print(f"Final values: width= {w} cm, height= {h} cm")
 userinput = (w,h)
 
 nn10_list = []
 
-# Making a list with the 10 NN sorting and always removes the highest distance
+# Making a list with the 10 NN sorting and always removes the biggest distance
 for wtrain , htrain , label in punkter:
     dist = euclidean(userinput,(wtrain,htrain))
     if len(nn10_list) < 10:
@@ -78,6 +78,11 @@ elif pikachucount > pichucount:
     print("Your yellow little thing is a Pikachu")
 else:
     print("Its a tie between Pichu and Pikachu")
+    if label in nn10_list[0] == 0:
+        print("But the nearest neighbur is a Pichu")
+    else:
+        print("But the nearest neighbur is a Pikachu")
+    
 ## kan lÄgga in så att man får nÄrmaste grannen i nn10_list som förslag
 
 #Fixa så att dist inte lÄggs till i nn10_list, det enda du behöver Är label dÄr! 
