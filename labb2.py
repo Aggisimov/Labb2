@@ -26,7 +26,7 @@ def get_userinput(prompt):
         try:
             info = float(input(prompt))
             if info <= 0:
-                print("Please enter a positive number for width!\n")
+                print(f"Please enter a positive number for {prompt}!\n")
                 continue
             break
         except ValueError:
@@ -37,7 +37,7 @@ while True:
     w = get_userinput("Width: ")
     h = get_userinput("Height: ")
 
-    print(f"You entered width={w} cm, height={h} cm")
+    print(f"You entered width= {w} cm, height= {h} cm")
     confirm = input("Is this correct? (y/n): ").strip().lower()
 
     if confirm == "y":
@@ -55,10 +55,10 @@ for wtrain , htrain , label in punkter:
     dist = euclidean(userinput,(wtrain,htrain))
     if len(nn10_list) < 10:
         nn10_list.append((dist,label))
-        nn10_list.sort(key=lambda x: x[0])
+        nn10_list.sort(key=lambda x: x[0]) #sorting on distance
     
     else:
-         if dist < nn10_list[-1][0]:
+         if dist < nn10_list[-1][0]: #Comparing distance in last element of list
             nn10_list[-1] = (dist, label)
             nn10_list.sort(key=lambda x: x[0]) 
             
@@ -78,12 +78,9 @@ elif pikachucount > pichucount:
     print("Your yellow little thing is a Pikachu")
 else:
     print("Its a tie between Pichu and Pikachu")
-    if label in nn10_list[0] == 0:
-        print("But the nearest neighbur is a Pichu")
+    nearest_label = nn10_list[0][1] # Collecting the label in the first element 
+    if nearest_label == 0:
+        print("But the nearest neighbor is a Pichu")
     else:
-        print("But the nearest neighbur is a Pikachu")
-    
-## kan lÄgga in så att man får nÄrmaste grannen i nn10_list som förslag
+        print("But the nearest neighbor is a Pikachu")
 
-#Fixa så att dist inte lÄggs till i nn10_list, det enda du behöver Är label dÄr! 
-#Har svårt att förstå vad rad 69-72 gör. Kanske förtydliga med kommentar!
