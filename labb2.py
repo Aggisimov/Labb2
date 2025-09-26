@@ -2,7 +2,7 @@ import numpy as np
 
 punkter = []
 
-with open(r"C:\Users\jacob\Kod_vscode\Labb2\datapoints.txt") as file:
+with open(r"Labb2\datapoints.txt") as file:
     next(file)
     for rad in file:
         w, h, l = rad.strip().split(",")
