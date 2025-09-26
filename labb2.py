@@ -1,4 +1,3 @@
-import matplotlib.pyplot as plt
 import numpy as np
 
 punkter = []
@@ -83,4 +82,3 @@ else:
         print("But the nearest neighbor is a Pichu")
     else:
         print("But the nearest neighbor is a Pikachu")
-
