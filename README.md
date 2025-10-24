@@ -14,6 +14,7 @@ För att köra min kod måste man ladda ner mitt repo, så att txt filen ligger 
 Jag vet att jag jag skulle kunna anvnända Numpy mkt bättre, men jag tycker det är tydligare såhär!
 Jag hade en plan att läsa ut medelvärdet på distanserna när det blev lika samt visa det, men valde att fokusera på vidare lärande istället.
 
-Om jag hittar tiden så kommer jag återgå och göra VG uppgifterna också!
+## Kompletering
+Datan delas stratifierat (50/25 per klass) inför varje körning och accuracy beräknas över tio iterationer. En enkel plot används för att visuellt visa resultaten. Koden är testad i Python 3.11 med datapoints.txt i samma mapp som skriptet.
 
 ### Mvh Jacob Argeus
