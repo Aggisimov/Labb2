@@ -1,5 +1,5 @@
 import numpy as np
-
+import matplotlib.pyplot as plt
 punkter = []
 
 with open(r"datapoints.txt") as file:
@@ -82,3 +82,61 @@ else:
         print("But the nearest neighbor is a Pichu")
     else:
         print("But the nearest neighbor is a Pikachu")
+
+
+
+# ---------------------------- Uppgift 3 och 4 --------------------------------------
+
+pichu   = [p for p in punkter if p[2] == 0]  # Splitting data on labels to seperate 1 & 0
+pikachu = [p for p in punkter if p[2] == 1]  
+
+rng = np.random.default_rng(1337) # using random seed just to check 
+
+idx0 = rng.permutation(len(pichu))  # scrambeling the splitted list 
+idx1 = rng.permutation(len(pikachu))
+
+train = [pichu[i] for i in idx0[:50]] + [pikachu[i] for i in idx1[:50]] #taking the first 50 scmabled points
+test  = [pichu[i] for i in idx0[50:75]] + [pikachu[i] for i in idx1[50:75]] # then same but only 25 for the test data
+
+
+def knn_accuracy(train, test, k=10):
+    correct = 0
+    for w, h, true_label in test:
+        dists = []
+        for tw, th, tl in train:
+            dist = euclidean((w, h), (tw, th))
+            dists.append((dist, tl))
+        dists.sort(key=lambda x: x[0])
+        k_nearest = dists[:k]
+        ones = sum(lbl for _, lbl in k_nearest)
+        zeros = k - ones
+        if ones > zeros:
+            pred = 1
+        elif zeros > ones:
+            pred = 0
+        else:
+            pred = k_nearest[0][1]  # if tie take nearest 
+        if pred == true_label:
+            correct += 1
+    return correct / len(test)
+
+
+accuracies = []
+for _ in range(10):
+    idx0 = rng.permutation(len(pichu))
+    idx1 = rng.permutation(len(pikachu))
+
+    train = [pichu[i] for i in idx0[:50]] + [pikachu[i] for i in idx1[:50]]
+    test  = [pichu[i] for i in idx0[50:75]] + [pikachu[i] for i in idx1[50:75]]
+
+    acc = knn_accuracy(train, test, k=10)
+    accuracies.append(acc)
+    print(acc)
+mean_acc = float(np.mean(accuracies))
+print(f"Mean accuracy over 10 runs: {mean_acc}")
+
+plt.plot(accuracies, marker="o")   
+plt.title("Accuracy over 10 runs")
+plt.xlabel("Run")
+plt.ylabel("Accuracy")
+plt.show()
