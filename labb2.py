@@ -92,11 +92,11 @@ pikachu = [p for p in punkter if p[2] == 1]
 
 rng = np.random.default_rng(1337) # using random seed just to check 
 
-idx0 = rng.permutation(len(pichu))  # scrambeling the splitted list 
-idx1 = rng.permutation(len(pikachu))
+indices_class_0 = rng.permutation(len(pichu))  # scrambeling the splitted list 
+indices_class_1 = rng.permutation(len(pikachu))
 
-train = [pichu[i] for i in idx0[:50]] + [pikachu[i] for i in idx1[:50]] #taking the first 50 scmabled points
-test  = [pichu[i] for i in idx0[50:75]] + [pikachu[i] for i in idx1[50:75]] # then same but only 25 for the test data
+train = [pichu[i] for i in indices_class_0[:50]] + [pikachu[i] for i in indices_class_1[:50]] #taking the first 50 scmabled points
+test  = [pichu[i] for i in indices_class_0[50:75]] + [pikachu[i] for i in indices_class_1[50:75]] # then same but only 25 for the test data
 
 
 def knn_accuracy(train, test, k=10):
@@ -106,7 +106,7 @@ def knn_accuracy(train, test, k=10):
         for tw, th, tl in train:
             dist = euclidean((w, h), (tw, th))
             dists.append((dist, tl))
-        dists.sort(key=lambda x: x[0])
+        dists.sort(key=lambda x: x[0]) #sorting distance ascending
         k_nearest = dists[:k]
         ones = sum(lbl for _, lbl in k_nearest)
         zeros = k - ones
@@ -123,11 +123,11 @@ def knn_accuracy(train, test, k=10):
 
 accuracies = []
 for _ in range(10):
-    idx0 = rng.permutation(len(pichu))
-    idx1 = rng.permutation(len(pikachu))
+    indices_class_0 = rng.permutation(len(pichu))
+    indices_class_1 = rng.permutation(len(pikachu))
 
-    train = [pichu[i] for i in idx0[:50]] + [pikachu[i] for i in idx1[:50]]
-    test  = [pichu[i] for i in idx0[50:75]] + [pikachu[i] for i in idx1[50:75]]
+    train = [pichu[i] for i in indices_class_0[:50]] + [pikachu[i] for i in indices_class_1[:50]]
+    test  = [pichu[i] for i in indices_class_0[50:75]] + [pikachu[i] for i in indices_class_1[50:75]]
 
     acc = knn_accuracy(train, test, k=10)
     accuracies.append(acc)
